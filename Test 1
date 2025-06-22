@@ -1,0 +1,110 @@
+# Set a variable that will hold onto the score and set it to zero to start
+your_score = 0
+
+# import libraries
+
+import random
+import art
+import game_data
+
+accounts = game_data.data
+
+# Develop a function for presenting new questions after a right answer is given
+
+def choose_accounts():
+    return random.sample(accounts,2)
+
+def choose_new():
+    return random.choice(accounts)
+
+
+# Develop a function for requesting answers
+
+def request_answer():
+   return input("Who has more followers? Type 'A' or 'B': ").upper()
+
+# Create a loop that keeps repeating the new question function until a wrong answer is given. Also add choice "A" or "B"
+
+first_round = True
+continue_game = True
+
+your_answer = ""
+
+choice_a = ""
+choice_b = ""
+
+while continue_game:
+    if first_round:
+        choice_a,choice_b = choose_accounts()
+        print(art.logo)
+        print(f"Compare A: {choice_a['name']}, {choice_a['description']}, {choice_a['country']}")
+        print(art.vs)
+        print(f"Against B: {choice_b ['name']}, {choice_b['description']}, {choice_b['country']}")
+        your_answer = request_answer()
+        if your_answer == "A":
+            if choice_a['follower_count'] > choice_b['follower_count']:
+                your_score += 1
+                choice_a = choice_b
+                choice_b = choose_new()
+                print(art.logo)
+                print(f"You're right! Current score: {your_score}")
+                print(f"Compare A: {choice_a ['name']}, {choice_a['description']}, {choice_a['country']}")
+                print(art.vs)
+                print(f"Against B: {choice_b ['name']}, {choice_b['description']}, {choice_b['country']}")
+
+            else:
+                print(f"Sorry, that's wrong. Final score: {your_score}")
+                first_round = False
+
+        elif your_answer == "B":
+            if choice_b['follower_count'] > choice_a['follower_count']:
+                your_score += 1
+                choice_a = choice_b
+                choice_b = choose_new()
+                print(f"You're right! Current score: {your_score}")
+                print(art.logo)
+                print(f"Compare A: {choice_a['name']}, {choice_a['description']}, {choice_a['country']}")
+                print(art.vs)
+                print(f"Against B: {choice_b['name']}, {choice_b['description']}, {choice_b['country']}")
+
+            else:
+                print(f"Sorry, that's wrong. Final score: {your_score} ")
+                first_round = False
+
+
+
+        else:
+            print(f"Sorry, that's wrong. Final score: {your_score}")
+            first_round = False
+
+        first_round = False
+
+    your_answer = request_answer()
+    if your_answer == "A":
+        if choice_a['follower_count'] > choice_b['follower_count']:
+            your_score += 1
+            choice_a = choice_b
+            choice_b = choose_new()
+            print(art.logo)
+            print(f"You're right! Current score: {your_score}")
+            print(f"Compare A: {choice_a['name']}, {choice_a['description']}, {choice_a['country']}")
+            print(art.vs)
+            print(f"Against B: {choice_b['name']}, {choice_b['description']}, {choice_b['country']}")
+
+        else:
+            print(f"Sorry that's wrong. Final score: {your_score}")
+            continue_game = False
+
+
+    elif your_answer == "B":
+        if choice_b['follower_count'] > choice_a['follower_count']:
+            your_score += 1
+            choice_a = choice_b
+            print(f"You're right! Current score: {your_score}")
+            print(art.logo)
+            print(f"Compare A: {choice_a['name']}, {choice_a['description']}, {choice_a['country']}")
+            print(art.vs)
+            print(f"Against B: {choice_b['name']}, {choice_b['description']}, {choice_b['country']}")
+    else:
+        print(f"Sorry, that's wrong. Final score: {your_score}")
+        continue_game = False
